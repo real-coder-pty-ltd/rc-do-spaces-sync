@@ -1,0 +1,14 @@
+# pack-refs with: peeled fully-peeled sorted 
+2e76f65b2f18c7d7e4ba2c6a6ef88fa06d6351bc refs/heads/features/refactor-and-enhancement
+e99ec61bcc54e94148fc3978702309c5273db77b refs/heads/master
+3138df25c9825f4d29870d59f6575dff179bd1a5 refs/tags/1.0.5
+2072794e3f9369858ffef134cb6c535292cc9c8c refs/tags/1.0.7
+c05aa7013daba40a6dd53906e2d51661f9836abd refs/tags/1.0.7.1
+609fd91d698681a43e7fc420bdf50831e16969e4 refs/tags/1.0.8
+ea85f3bde62bfe1da7f864d0cc7362f11143c2c3 refs/tags/1.1.0
+2e3aeb850ff2f636df590a3769b52177f2ce8db3 refs/tags/2.0.1
+8d40750ef4952bef89eed0393b51a706bfb60693 refs/tags/2.0.3
+07c5e54088991c4535e55ba19e21e4acf34e3931 refs/tags/2.0.4
+2f50bc0bea4ad2d8611eed319706cffbc9cb220c refs/tags/2.0.5
+ccea83bc40f28548c719a7d5fd8426d45a083458 refs/tags/3.0.0
+^2e76f65b2f18c7d7e4ba2c6a6ef88fa06d6351bc
