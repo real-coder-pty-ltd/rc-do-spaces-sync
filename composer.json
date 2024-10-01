@@ -1,5 +1,5 @@
 {
-  "name": "keeross/DO-Spaces-Wordpress-Sync",
+  "name": "real-coder-pty-ltd/do-spaces-sync",
   "type": "plugin",
   "description": "This WordPress plugin syncs your media library with DigitalOcean Spaces Container.",
   "keywords": [
@@ -10,13 +10,13 @@
     "storage",
     "cloudfiles"
   ],
-  "homepage": "https://github.com/keeross/DO-Spaces-Wordpress-Sync",
+  "homepage": "https://github.com/real-coder-pty-ltd/do-spaces-sync",
   "license": "MIT",
   "authors": [
     {
-      "name": "keeross",
-      "email": "keeross@dolsen.co",
-      "homepage": "https://github.com/keeross"
+      "name": "Matt Neal",
+      "email": "matt.neal@realcoder.com.au",
+      "homepage": "https://github.com/mattneal-stafflink"
     }
   ],
   "autoload": {
