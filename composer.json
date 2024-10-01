@@ -1,5 +1,5 @@
 {
-  "name": "real-coder-pty-ltd/do-spaces-sync",
+  "name": "real-coder-pty-ltd/do-spaces-sync-rc",
   "type": "wordpress-plugin",
   "description": "This WordPress plugin syncs your media library with DigitalOcean Spaces Container.",
   "keywords": [
