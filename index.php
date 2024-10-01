@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: DigitalOcean Spaces Sync
- * Plugin URI: https://github.com/keeross/DO-Spaces-Wordpress-Sync
- * Description: A php 7.X.X version of the Keeros plugin @see https://github.com/keeross/DO-Spaces-Wordpress-Sync
+ * Plugin Name: Digital Ocean Spaces Sync
+ * Plugin URI: https://github.com/real-coder-pty-ltd/do-spaces-sync
+ * Description: Updated version of the DO Spaces Sync WordPress plugin.
  * Version: 1.0.0
- * Author: frappacchio
- * Author URI: https://github.com/frappacchio
+ * Author: MattNeal
+ * Author URI: https://github.com/matt-nealstafflink
  * License: MIT
  * Text Domain: dos
  * Domain Path: /languages
