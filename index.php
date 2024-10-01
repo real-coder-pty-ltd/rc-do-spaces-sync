@@ -9,10 +9,7 @@
  * License: MIT
  * Text Domain: dos
  * Domain Path: /languages
-
  */
-
-require_once 'vendor/autoload.php';
 
 define('DOS_PLUGIN_FOLDER', __DIR__);
 define('DOS_PLUGIN_FOLDER_RELATIVE_PATH', dirname(plugin_basename(__FILE__)));
