@@ -29,3 +29,40 @@ There is a known issue with the built in Wordpress Image Editor, it will not upl
 3. Go to `Settings -> DigitalOcean Spaces Sync` and set up plugin
 
 If plugin has been downloaded from GitHub, you have to install vendor components via `composer update`.
+
+---
+
+## Image Handling "Best Practices"
+
+Configure settings -> media sizes based on the websites' design requirements (thumb max size, hero image max size, etc.). Add additional sizes if required via registering new sizes hooks.
+
+Use WordPress native features to get images attached to a listing via `get_the_post_thumbnail()` eg:
+```
+<?php echo get_the_post_thumbnail($property->post->ID, 'medium'); ?>
+```
+
+Get attached media via:
+
+```
+$attachments = get_attached_media('image', $property->post->ID);
+$media = [];
+
+// Get the attachment IDs.
+foreach ($attachments as $attachment) {
+	$media[] = $attachment->ID;
+}
+```
+
+For the gallery, loop over your media and output the images via WP native functionality like so:
+
+```
+wp_get_attachment_image( $attachment_id, $size, $icon, $attr );
+```
+
+working example:
+
+```
+foreach($attachments as $attachment) {
+	echo wp_get_attachment_image( $attachment->ID, $size, false, ['class' => 'gallery-image'] );
+}
+```
