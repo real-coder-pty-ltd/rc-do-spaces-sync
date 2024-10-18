@@ -150,9 +150,23 @@ class Filesystem
     public function testConnection()
     {
         try {
-            $this->fileSystem->write('test.txt', 'test');
+            $settings = new \frappacchio\DOSWordpress\PluginSettings();
+            $upload = $settings->get('dos_storage_path').'/test.txt';
+            $url = $settings->get('upload_url_path').'/test.txt';
 
-            return $this->fileSystem->delete('test.txt');
+            $this->fileSystem->write($upload, 'test', ['visibility' => 'public']);
+
+            $headers = @get_headers($url);
+
+            if ($headers && strpos($headers[0], '200') !== false) {
+                $this->fileSystem->delete('test.txt');
+
+                return true;
+            } else {
+                return false;
+            }
+
+            return true;
         } catch (\Exception $e) {
             return false;
         }
