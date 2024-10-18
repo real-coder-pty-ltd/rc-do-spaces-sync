@@ -2,10 +2,13 @@
 
 namespace frappacchio\DOSpaces;
 
+use Aws\S3\S3Client;
+use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
+use League\Flysystem\Filesystem as Flysystem;
+
 /**
  * Class Filesystem
  *
- * @package frappacchio\DOSpaces
  *
  * @property \League\Flysystem\Filesystem $fileSystem
  * @property string $key
@@ -18,51 +21,59 @@ namespace frappacchio\DOSpaces;
  * @property string $filter
  * @property string $uploadUrlPath
  * @property string $uploadPath
- * @property boolean $fileVisibility
+ * @property bool $fileVisibility
  */
 class Filesystem
 {
     /**
-     * @var Space
+     * @var Flysystem
      */
     public $fileSystem;
+
     /**
      * @var string
      */
     public $key;
+
     /**
      * @var string
      */
     public $secret;
+
     /**
      * @var string
      */
     public $endpoint;
+
     /**
      * @var string
      */
     public $container;
+
     /**
      * @var string
      */
     public $storagePath;
+
     /**
      * @var string
      */
     public $filter;
+
     /**
      * @var string
      */
     public $fileVisibility = 'public';
 
     /**
-     * Space constructor.
-     * @param string $key
-     * @param string $secret
-     * @param string $container
-     * @param string $endpoint
-     * @param string $storagePath
-     * @param string $filter
+     * Filesystem constructor.
+     *
+     * @param  string  $key
+     * @param  string  $secret
+     * @param  string  $container
+     * @param  string  $endpoint
+     * @param  string  $storagePath
+     * @param  string  $filter
      */
     public function __construct(
         $key,
@@ -78,11 +89,23 @@ class Filesystem
         $this->container = $container;
         $this->storagePath = $storagePath;
         $this->filter = $filter;
-        $this->fileSystem = Space::getInstance($this->key, $this->secret, $this->container, $this->endpoint);
+
+        $client = new S3Client([
+            'credentials' => [
+                'key' => $this->key,
+                'secret' => $this->secret,
+            ],
+            'region' => 'your-region',
+            'version' => 'latest',
+            'endpoint' => $this->endpoint,
+        ]);
+
+        $adapter = new AwsS3V3Adapter($client, $this->container);
+        $this->fileSystem = new Flysystem($adapter);
     }
 
     /**
-     * @param string $fileName
+     * @param  string  $fileName
      * @return bool
      */
     public function upload($fileUpload, $fileName = '')
@@ -90,29 +113,26 @@ class Filesystem
         if (empty($fileName)) {
             $fileName = $fileUpload;
         }
-        if (!empty($fileName)) {
-            if (!empty($this->filter) && ($this->filter !== '*' && !preg_match($this->filter, $fileName))) {
+        if (! empty($fileName)) {
+            if (! empty($this->filter) && ($this->filter !== '*' && ! preg_match($this->filter, $fileName))) {
                 return false;
             }
-            $uploadResult = $this->fileSystem->put($fileName, file_get_contents($fileUpload), [
+            $uploadResult = $this->fileSystem->write($fileName, file_get_contents($fileUpload), [
                 'visibility' => $this->fileVisibility,
             ]);
+
             return $uploadResult;
         } else {
             return false;
         }
     }
 
-    /**
-     * @param $file
-     */
     public function exists($file)
     {
-
+        // Implement the exists method
     }
 
     /**
-     * @param $file
      * @return bool
      */
     public function delete($file)
@@ -131,6 +151,7 @@ class Filesystem
     {
         try {
             $this->fileSystem->write('test.txt', 'test');
+
             return $this->fileSystem->delete('test.txt');
         } catch (\Exception $e) {
             return false;
@@ -138,18 +159,17 @@ class Filesystem
     }
 
     /**
-     * @param $name
      * @return bool|\League\Flysystem\Filesystem|null
      */
     public function __get($name)
     {
-        if ($name === 'fileSystem' && empty($this->fileSystem) && !empty($this->key) && !empty($this->container) && !empty($this->endpoint)) {
+        if ($name === 'fileSystem' && empty($this->fileSystem) && ! empty($this->key) && ! empty($this->container) && ! empty($this->endpoint)) {
             return $this->fileSystem = Space::getInstance($this->key, $this->secret, $this->container,
                 $this->endpoint);
         } elseif ($name === 'fileSystem') {
             return false;
         }
 
-        return !empty($this->$name) ? $this->$name : null;
+        return ! empty($this->$name) ? $this->$name : null;
     }
 }
